@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>TrendCart | Sign Up</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #FEFAF0 0%, #FDF4CF 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    :root {
+      --primary-dark: #25671E;
+      --primary-soft: #F6F09F;
+      --card-white: #FFFFFF;
+      --shadow-md: 0 20px 25px -12px rgba(0,0,0,0.1);
+    }
+    .container {
+      max-width: 480px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      flex: 1;
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .logo h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+    .logo span {
+      font-weight: 400;
+      font-size: 0.9rem;
+      color: #4a6b3e;
+    }
+    .card {
+      background: var(--card-white);
+      border-radius: 2rem;
+      padding: 2rem 1.8rem;
+      box-shadow: var(--shadow-md);
+      border: 1px solid #f0ead9;
+    }
+    .card h2 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      color: #1B3A16;
+    }
+    .card p {
+      color: #5a5a5a;
+      margin-bottom: 1.8rem;
+    }
+    .input-group {
+      margin-bottom: 1.2rem;
+    }
+    .input-group label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+      color: #1E2A1C;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid #e0dbc9;
+      border-radius: 1rem;
+      font-family: 'Inter', sans-serif;
+      background: #FEFCF7;
+      transition: 0.2s;
+    }
+    .input-group input:focus {
+      outline: none;
+      border-color: var(--primary-dark);
+      box-shadow: 0 0 0 2px rgba(37,103,30,0.2);
+    }
+    .checkbox {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin: 1rem 0;
+    }
+    .checkbox input {
+      width: 18px;
+      height: 18px;
+    }
+    button {
+      background: var(--primary-dark);
+      color: var(--primary-soft);
+      border: none;
+      width: 100%;
+      padding: 0.9rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 0.5rem;
+    }
+    button:hover {
+      background: #1B4F15;
+      transform: translateY(-2px);
+    }
+    .links {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+    .links a {
+      color: var(--primary-dark);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .links a:hover {
+      text-decoration: underline;
+    }
+    .toast-msg {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1F3B1A;
+      color: #F6F09F;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      z-index: 400;
+      opacity: 0;
+      transition: 0.2s;
+      pointer-events: none;
+    }
+    .toast-msg.show { opacity: 1; }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+      color: #5a5a5a;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="logo">
+    <a href="index.html" style="text-decoration: none;"><h1>TRENDCART <span>· women</span></h1></a>
+  </div>
+  <div class="card">
+    <h2>Join the circle</h2>
+    <p>Create an account and enjoy 10% off your first order</p>
+
+    <form id="signupForm">
+      <div class="input-group">
+        <label>Full name</label>
+        <input type="text" id="fullName" placeholder="Elena Voss" required>
+      </div>
+      <div class="input-group">
+        <label>Email address</label>
+        <input type="email" id="signupEmail" placeholder="hello@example.com" required>
+      </div>
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" id="signupPassword" placeholder="Create a strong password" required>
+      </div>
+      <div class="input-group">
+        <label>Confirm password</label>
+        <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+      </div>
+      <div class="checkbox">
+        <input type="checkbox" id="newsletter" checked>
+        <label for="newsletter" style="margin-bottom:0;">Send me updates & exclusive offers</label>
+      </div>
+      <div class="checkbox">
+        <input type="checkbox" id="terms" required>
+        <label for="terms" style="margin-bottom:0;">I agree to the <a href="#">Terms & Privacy</a></label>
+      </div>
+      <button type="submit">Sign up →</button>
+    </form>
+
+    <div class="links">
+      Already have an account? <a href="login.html">Log in</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>🌿 Ethically made | Free shipping on orders $100+</p>
+</footer>
+
+<div id="toastMsg" class="toast-msg"></div>
+
+<script>
+  function showToast(msg) {
+    const toast = document.getElementById('toastMsg');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+  }
+
+  document.getElementById('signupForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('fullName').value.trim();
+    const email = document.getElementById('signupEmail').value.trim();
+    const password = document.getElementById('signupPassword').value;
+    const confirm = document.getElementById('confirmPassword').value;
+    const terms = document.getElementById('terms').checked;
+
+    if (!name || !email || !password || !confirm) {
+      showToast('Please fill in all fields');
+      return;
+    }
+    if (!email.includes('@')) {
+      showToast('Enter a valid email address');
+      return;
+    }
+    if (password.length < 6) {
+      showToast('Password must be at least 6 characters');
+      return;
+    }
+    if (password !== confirm) {
+      showToast('Passwords do not match');
+      return;
+    }
+    if (!terms) {
+      showToast('You must agree to the Terms & Privacy');
+      return;
+    }
+
+    // Simulate successful signup
+    
+    showToast(`🎉 Welcome, ${name}! Redirecting...`);
+    const userData = {
+    name: name,
+    email: email,
+    memberSince: new Date().getFullYear(),
+    address: "",
+    newsletter: document.getElementById('newsletter').checked ? "Subscribed" : "Unsubscribed"
+  };
+
+localStorage.setItem("trendcart_user", JSON.stringify(userData));
+    
+    setTimeout(() => {
+      window.location.href = 'index.html';
+    }, 1500);
+  });
+</script>
+</body>
+</html>

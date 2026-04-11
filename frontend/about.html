@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>TrendCart | About Us — Conscious Style</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #FEFAF0;
+      color: #1E2A1C;
+      scroll-behavior: smooth;
+    }
+    :root {
+      --primary-dark: #25671E;
+      --primary-soft: #F6F09F;
+      --card-white: #FFFFFF;
+      --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.05);
+      --shadow-md: 0 20px 25px -12px rgba(0,0,0,0.08);
+      --transition: all 0.25s ease;
+    }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+    /* navbar */
+    .navbar {
+      background-color: var(--primary-dark);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .logo h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-soft);
+    }
+    .logo span { font-weight: 400; font-size: 0.9rem; color: #e9e2b0; }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #FEF7DA;
+      transition: var(--transition);
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: white;
+      border-bottom: 1px solid var(--primary-soft);
+    }
+    .profile-icon, .cart-icon {
+      cursor: pointer;
+      font-size: 1.4rem;
+      color: var(--primary-soft);
+      position: relative;
+    }
+    .cart-count {
+      position: absolute;
+      top: -10px;
+      right: -12px;
+      background-color: #F6F09F;
+      color: #1F3B1A;
+      font-size: 0.7rem;
+      font-weight: 700;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* page hero */
+    .page-hero {
+      background: linear-gradient(105deg, #F6F09F 0%, #FDF4CF 100%);
+      border-radius: 2rem;
+      margin: 2rem 0;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    .page-hero h1 { font-size: 3rem; color: #1B3A16; margin-bottom: 1rem; }
+    .page-hero p { font-size: 1.2rem; max-width: 700px; margin: 0 auto; color: #2C4726; }
+    .about-story {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3rem;
+      margin: 3rem 0;
+      align-items: center;
+    }
+    .about-text { flex: 1; }
+    .about-text h2 { font-size: 2rem; color: var(--primary-dark); margin-bottom: 1rem; }
+    .about-text p { margin-bottom: 1.2rem; line-height: 1.6; }
+    .about-image { flex: 1; }
+    .about-image img { width: 100%; border-radius: 2rem; box-shadow: var(--shadow-md); }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    .value-card {
+      background: white;
+      padding: 2rem 1.5rem;
+      border-radius: 1.5rem;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+    .value-card i { font-size: 2.5rem; color: var(--primary-dark); margin-bottom: 1rem; }
+    .signature {
+      background: var(--primary-soft);
+      padding: 2rem;
+      border-radius: 2rem;
+      text-align: center;
+      margin: 2rem 0;
+    }
+    /* footer */
+    .footer {
+      background: var(--primary-dark);
+      color: #FBF5DA;
+      padding: 3rem 0 1.5rem;
+      margin-top: 4rem;
+    }
+    .footer-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    .copyright {
+      text-align: center;
+      border-top: 1px solid #3C6E34;
+      padding-top: 1.8rem;
+      margin-top: 2rem;
+    }
+    /* cart drawer (minimal) */
+    .cart-overlay {
+      position: fixed; top:0; left:0; width:100%; height:100%;
+      background: rgba(0,0,0,0.4); z-index:200; visibility: hidden; opacity:0;
+      transition: 0.2s;
+    }
+    .cart-overlay.open { visibility: visible; opacity:1; }
+    .cart-drawer {
+      position: fixed; top:0; right:-100%; width:100%; max-width:420px; height:100%;
+      background: white; z-index:300; transition: right 0.3s;
+      display: flex; flex-direction: column;
+    }
+    .cart-drawer.open { right:0; }
+    .cart-header {
+      background: var(--primary-dark); color: var(--primary-soft);
+      padding: 1.2rem; display: flex; justify-content: space-between;
+    }
+    .cart-items-list { flex:1; overflow-y: auto; padding:1rem; }
+    .cart-footer { padding:1rem; border-top:2px solid #F6F09F; }
+    .checkout-btn {
+      background: var(--primary-dark); width:100%; padding:0.8rem;
+      border:none; border-radius:60px; color: var(--primary-soft);
+      cursor: pointer;
+    }
+    .toast-msg {
+      position: fixed; bottom:30px; left:50%; transform:translateX(-50%);
+      background:#1F3B1A; color:#F6F09F; padding:10px 20px; border-radius:50px;
+      z-index:400; opacity:0; transition:0.2s; pointer-events: none;
+    }
+    .toast-msg.show { opacity:1; }
+    .profile-dropdown {
+      position: absolute; top:55px; right:80px; background:white;
+      border-radius:20px; width:180px; padding:0.8rem 0;
+      visibility: hidden; opacity:0; transition:0.2s;
+      box-shadow:0 10px 25px rgba(0,0,0,0.1);
+    }
+    .profile-dropdown.show { visibility: visible; opacity:1; }
+    .profile-dropdown a { display:block; padding:0.6rem 1.2rem; color:#1E2A1C; text-decoration:none; }
+    .profile-dropdown a:hover { background:#F6F09F; }
+    @media (max-width:780px) {
+      .page-hero h1 { font-size:2rem; }
+      .nav-container { flex-direction:column; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="navbar">
+  <div class="container nav-container">
+    <div class="logo"><a href="index.html" style="text-decoration:none;"><h1>TRENDCART <span>· women</span></h1></a></div>
+    <div class="nav-links">
+      <a href="index.html">Shop</a>
+      <a href="about.html" class="active">About Us</a>
+      <a href="contact.html">Contact Us</a>
+      <div class="profile-icon" id="profileIconBtn"><i class="fas fa-user-circle"></i><div class="profile-dropdown" id="profileDropdown"><a href="#">Wishlist</a><a href="#">Account</a><a href="#">Orders</a></div></div>
+      <div class="cart-icon" id="cartIcon"><i class="fas fa-bag-shopping"></i><span class="cart-count" id="cartCountDisplay">0</span></div>
+    </div>
+  </div>
+</div>
+
+<main class="container">
+  <div class="page-hero">
+    <h1>Rooted in nature,<br>woven with purpose</h1>
+    <p>TrendCart was born from a love for slow fashion — timeless pieces that honour both the wearer and the planet.</p>
+  </div>
+
+  <div class="about-story">
+    <div class="about-text">
+      <h2>Our story</h2>
+      <p>Founded in 2026, TrendCart began as a small atelier dedicated to creating women’s clothing that feels effortless and intentional. We believe that what you wear should be a reflection of your values — comfort, quality, and sustainability.</p>
+      <p>Every garment is crafted with organic fibres, low-impact dyes, and ethical manufacturing. We work closely with family-owned mills and artisans who share our vision for a more transparent fashion industry.</p>
+      <p>From linen dresses to hand-finished knitwear, each piece is designed to transcend seasons and trends. We’re not just building a brand; we’re nurturing a community of conscious women.</p>
+    </div>
+    <div class="about-image"><img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&h=500&fit=crop" alt="sustainable fashion studio"></div>
+  </div>
+
+  <h2 style="font-size:2rem; margin:2rem 0 1rem;">Our guiding principles</h2>
+  <div class="values-grid">
+    <div class="value-card"><i class="fas fa-leaf"></i><h3>Eco-first</h3><p>100% plastic-free packaging, GOTS-certified cottons, and deadstock fabrics.</p></div>
+    <div class="value-card"><i class="fas fa-hand-sparkles"></i><h3>Ethical making</h3><p>Fair wages, safe workplaces, and long-term partnerships with artisans.</p></div>
+    <div class="value-card"><i class="fas fa-infinity"></i><h3>Timeless design</h3><p>No micro-seasons. We create pieces you’ll love for years.</p></div>
+    <div class="value-card"><i class="fas fa-tree"></i><h3>Climate positive</h3><p>1% of every sale goes to reforestation.</p></div>
+  </div>
+
+  <div class="signature">
+    <i class="fas fa-quote-left" style="font-size:2rem; opacity:0.7;"></i>
+    <p style="font-size:1.2rem; max-width:700px; margin:1rem auto; font-style:italic;">Fashion should never feel like a compromise — between style and conscience, between comfort and elegance. At TrendCart, we make sure you get both.</p>
+    <p>— Elena V., founder & creative director</p>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div><h4>TrendCart</h4><p>Conscious clothing for the modern woman.</p></div>
+      <div><h4>Help</h4><p>Shipping & Returns<br>Size Guide<br>FAQs</p></div>
+      <div><h4>Connect</h4><div class="social-icons"><i class="fab fa-instagram"></i><i class="fab fa-pinterest"></i><i class="fab fa-twitter"></i></div></div>
+    </div>
+    <div class="copyright"><p>🌿 Ethically made | Free shipping on orders $100+</p></div>
+  </div>
+</footer>
+
+<!-- Cart Drawer -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header"><span><i class="fas fa-shopping-bag"></i> Your bag</span><i class="fas fa-times" id="closeCartBtn"></i></div>
+  <div class="cart-items-list" id="cartItemsList"><div style="text-align:center; padding:2rem;">Your cart is empty</div></div>
+  <div class="cart-footer"><div class="cart-total"><span>Total</span><span id="cartTotalPrice">$0.00</span></div><button class="checkout-btn" id="checkoutBtn">Checkout →</button></div>
+</div>
+<div id="toastMsg" class="toast-msg">✨ Added to bag</div>
+
+<script>
+  let cart = [];
+  function showToast(m) { let t=document.getElementById('toastMsg'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1800); }
+  function updateCartUI() { document.getElementById('cartCountDisplay').innerText=cart.reduce((s,i)=>s+i.quantity,0); renderCart(); }
+  function renderCart() {
+    const c = document.getElementById('cartItemsList');
+    if(cart.length===0){ c.innerHTML='<div style="text-align:center;padding:2rem;">Your cart is empty</div>'; document.getElementById('cartTotalPrice').innerText='$0.00'; return; }
+    let html='', total=0;
+    cart.forEach(i=>{ total+=i.price*i.quantity; html+=`<div><strong>${i.name}</strong> - $${i.price} x ${i.quantity} <button class="remove-item" data-id="${i.id}" style="background:none;border:none;color:#af9f7a;cursor:pointer;">🗑️</button></div><hr>`; });
+    c.innerHTML=html; document.getElementById('cartTotalPrice').innerText=`$${total.toFixed(2)}`;
+    document.querySelectorAll('.remove-item').forEach(btn=>btn.addEventListener('click',()=>{ cart=cart.filter(i=>i.id!==parseInt(btn.dataset.id)); updateCartUI(); showToast('Removed'); }));
+  }
+  document.getElementById('cartIcon')?.addEventListener('click',()=>{ document.getElementById('cartDrawer').classList.add('open'); document.getElementById('cartOverlay').classList.add('open'); });
+  document.getElementById('closeCartBtn')?.addEventListener('click',()=>{ document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('cartOverlay').classList.remove('open'); });
+  document.getElementById('cartOverlay')?.addEventListener('click',()=>{ document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('cartOverlay').classList.remove('open'); });
+  document.getElementById('checkoutBtn')?.addEventListener('click',()=>{ if(cart.length===0) showToast("Cart empty"); else alert(`Checkout total: $${cart.reduce((s,i)=>s+i.price*i.quantity,0).toFixed(2)}`); });
+  const pb=document.getElementById('profileIconBtn'), pd=document.getElementById('profileDropdown');
+  pb?.addEventListener('click',(e)=>{ e.stopPropagation(); pd.classList.toggle('show'); });
+  document.addEventListener('click',()=>{ if(pd) pd.classList.remove('show'); });
+  updateCartUI();
+</script>
+</body>
+</html>

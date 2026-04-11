@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>TrendCart | My Orders</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #FEFAF0;
+      color: #1E2A1C;
+    }
+    :root {
+      --primary-dark: #25671E;
+      --primary-soft: #F6F09F;
+      --card-white: #FFFFFF;
+      --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.05);
+      --shadow-md: 0 20px 25px -12px rgba(0,0,0,0.08);
+    }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+    .navbar {
+      background-color: var(--primary-dark);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .logo h1 { font-size: 1.8rem; font-weight: 700; color: var(--primary-soft); }
+    .logo span { font-weight: 400; font-size: 0.9rem; color: #e9e2b0; }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #FEF7DA;
+      transition: all 0.25s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: white; border-bottom: 1px solid var(--primary-soft); }
+    .cart-icon { cursor: pointer; font-size: 1.4rem; color: var(--primary-soft); position: relative; }
+    .cart-count {
+      position: absolute; top: -10px; right: -12px; background-color: #F6F09F;
+      color: #1F3B1A; font-size: 0.7rem; font-weight: 700; border-radius: 50%;
+      width: 20px; height: 20px; display: flex; align-items: center; justify-content: center;
+    }
+    .page-header { margin: 2rem 0 1.5rem; }
+    .page-header h1 { font-size: 2rem; color: #1B3A16; }
+    .orders-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .order-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid #f0ead9;
+    }
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid #efeadb;
+    }
+    .order-id { font-weight: 700; color: var(--primary-dark); }
+    .order-date { color: #7a6e52; font-size: 0.9rem; }
+    .order-status {
+      background: #F6F09F;
+      padding: 0.2rem 0.8rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #1F3B1A;
+    }
+    .order-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .order-item {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      background: #FEFCF7;
+      padding: 0.5rem;
+      border-radius: 1rem;
+      width: calc(33% - 0.7rem);
+      min-width: 200px;
+    }
+    .order-item-img {
+      width: 60px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+    .order-item-details { font-size: 0.9rem; }
+    .order-total { text-align: right; font-weight: 700; margin-top: 0.8rem; }
+    .empty-msg {
+      text-align: center;
+      padding: 4rem;
+      background: white;
+      border-radius: 2rem;
+      color: #7a6e52;
+    }
+    .footer {
+      background: var(--primary-dark);
+      color: #FBF5DA;
+      padding: 3rem 0 1.5rem;
+      margin-top: 4rem;
+    }
+    .footer-grid { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2rem; }
+    .copyright { text-align: center; border-top: 1px solid #3C6E34; padding-top: 1.8rem; margin-top: 2rem; }
+    @media (max-width: 780px) { .order-item { width: 100%; } .nav-container { flex-direction: column; } }
+  </style>
+</head>
+<body>
+
+<div class="navbar">
+  <div class="container nav-container">
+    <div class="logo"><a href="index.html" style="text-decoration:none;"><h1>TRENDCART <span>· women</span></h1></a></div>
+    <div class="nav-links">
+      <a href="index.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="wishlist.html">Wishlist</a>
+      <a href="orders.html" class="active">Orders</a>
+      <a href="account.html">Account</a>
+      <div class="cart-icon" id="cartIcon"><i class="fas fa-bag-shopping"></i><span class="cart-count" id="cartCountDisplay">0</span></div>
+    </div>
+  </div>
+</div>
+
+<main class="container">
+  <div class="page-header">
+    <h1><i class="fas fa-truck"></i> My Orders</h1>
+    <p>Track your purchases and reorder favorites</p>
+  </div>
+  <div id="ordersContainer" class="orders-list"></div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div><h4>TrendCart</h4><p>Conscious clothing for the modern woman.</p></div>
+      <div><h4>Help</h4><p>Shipping & Returns<br>Size Guide<br>FAQs</p></div>
+      <div><h4>Connect</h4><i class="fab fa-instagram"></i> <i class="fab fa-pinterest"></i> <i class="fab fa-twitter"></i></div>
+    </div>
+    <div class="copyright"><p>🌿 Ethically made | Free shipping on orders $100+</p></div>
+  </div>
+</footer>
+
+<script>
+  // Demo orders stored in localStorage
+  let orders = JSON.parse(localStorage.getItem('orders')) || [];
+  
+
+  let cart = JSON.parse(localStorage.getItem('trendcart_cart')) || [];
+
+  function updateCartCount() {
+    const total = cart.reduce((s, i) => s + i.quantity, 0);
+    document.getElementById('cartCountDisplay').innerText = total;
+  }
+
+  function renderOrders() {
+    const container = document.getElementById('ordersContainer');
+    if (!orders.length) {
+      container.innerHTML = `<div class="empty-msg"><i class="fas fa-shopping-bag" style="font-size:3rem;"></i><p>You haven't placed any orders yet.</p><a href="index.html" style="color:var(--primary-dark);">Start shopping →</a></div>`;
+      return;
+    }
+    container.innerHTML = orders.map(order => `
+      <div class="order-card">
+        <div class="order-header">
+          <span class="order-id">Order #${order.id}</span>
+          <span class="order-date">${order.date}</span>
+          <span class="order-status">${order.status}</span>
+        </div>
+        <div class="order-items">
+          ${order.items.map(item => `
+            <div class="order-item">
+              <img class="order-item-img" src="${item.image}" alt="${item.name}">
+              <div class="order-item-details">
+                <strong>${item.name}</strong><br>
+                $${item.price} × ${item.quantity}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+        <div class="order-total">Total: $${order.total.toFixed(2)}</div>
+      </div>
+    `).join('');
+  }
+
+  document.getElementById('cartIcon')?.addEventListener('click', () => {
+    window.location.href = 'index.html#cart-drawer';
+  });
+
+  updateCartCount();
+  renderOrders();
+</script>
+</body>
+</html>
