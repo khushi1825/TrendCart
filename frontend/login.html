@@ -209,7 +209,34 @@
     // Simulate login (demo only)
     // In a real app, you'd check credentials against a backend.
     // For demo, we just show success and redirect to index.
-    showToast(`✨ Welcome back! Redirecting...`);
+    const API_BASE_URL = "https://trendcart-2.onrender.com"; // apna backend
+
+fetch(`${API_BASE_URL}/auth/login`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({ email, password })
+})
+.then(res => res.json())
+.then(data => {
+  if (data.success) {
+    localStorage.setItem("trendcart_user", JSON.stringify(data.user));
+    localStorage.setItem("token", data.token);
+
+    showToast("Login successful 🚀");
+
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 1500);
+  } else {
+    showToast(data.message || "Login failed");
+  }
+})
+.catch(err => {
+  console.error(err);
+  showToast("Server error 😢");
+});
     const userData = {
   name: email.split("@")[0], // simple demo name
   email: email

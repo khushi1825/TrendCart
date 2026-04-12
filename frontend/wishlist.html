@@ -178,6 +178,11 @@
 <div id="toastMsg" class="toast-msg"></div>
 
 <script>
+  const user = JSON.parse(localStorage.getItem("trendcart_user"));
+
+if (!user) {
+  window.location.href = "login.html";
+}
   let wishlist = JSON.parse(localStorage.getItem('trendcart_wishlist')) || [];
   let cart = JSON.parse(localStorage.getItem('trendcart_cart')) || [];
 
@@ -235,9 +240,20 @@
     document.querySelectorAll('.btn-remove').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const id = parseInt(btn.dataset.id);
-        wishlist = wishlist.filter(p => p.id !== id);
-        saveWishlist();
-        renderWishlist();
+        const token = localStorage.getItem("token");
+
+fetch(`${API_BASE_URL}/wishlist/${id}`, {
+  method: "DELETE",
+  headers: {
+    "Authorization": `Bearer ${token}`
+  }
+})
+.then(res => res.json())
+.then(() => {
+  wishlist = wishlist.filter(p => p.id !== id);
+  renderWishlist();
+  showToast("Removed from wishlist");
+});
         showToast('Removed from wishlist');
       });
     });
@@ -253,7 +269,28 @@
   });
 
   updateCartCountFromStorage();
-  renderWishlist();
+  const API_BASE_URL = "https://trendcart-2.onrender.com";
+
+function fetchWishlist() {
+  const token = localStorage.getItem("token");
+
+  fetch(`${API_BASE_URL}/wishlist`, {
+    headers: {
+      "Authorization": `Bearer ${token}`
+    }
+  })
+  .then(res => res.json())
+  .then(data => {
+    wishlist = data.wishlist || [];
+    renderWishlist();
+  })
+  .catch(err => {
+    console.error(err);
+    showToast("Failed to load wishlist 😢");
+  });
+}
+
+fetchWishlist();
 </script>
 </body>
 </html>

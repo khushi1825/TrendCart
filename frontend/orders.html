@@ -169,6 +169,11 @@
 
 <script>
   // Demo orders stored in localStorage
+  const user = JSON.parse(localStorage.getItem("trendcart_user"));
+
+if (!user) {
+  window.location.href = "login.html";
+}
   let orders = JSON.parse(localStorage.getItem('orders')) || [];
   
 
@@ -213,7 +218,27 @@
   });
 
   updateCartCount();
-  renderOrders();
+  const API_BASE_URL = "https://trendcart-2.onrender.com";
+
+function fetchOrders() {
+  const token = localStorage.getItem("token");
+
+  fetch(`${API_BASE_URL}/orders`, {
+    headers: {
+      "Authorization": `Bearer ${token}`
+    }
+  })
+  .then(res => res.json())
+  .then(data => {
+    orders = data.orders || [];
+    renderOrders();
+  })
+  .catch(err => {
+    console.error(err);
+  });
+}
+
+fetchOrders();
 </script>
 </body>
 </html>

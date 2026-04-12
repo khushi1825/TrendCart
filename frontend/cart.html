@@ -439,17 +439,17 @@
     // Save order to localStorage (same as index.html uses 'orders')
     let orders = JSON.parse(localStorage.getItem('orders')) || [];
     const newOrder = {
-      id: Date.now(),
-      date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
-      status: 'Processing',
-      total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
-      items: cart.map(item => ({
-        name: item.name,
-        price: item.price,
-        quantity: item.quantity,
-        image: item.image
-      }))
-    };
+  id: Date.now(),
+  date: new Date().toLocaleDateString(),
+  status: "Processing",
+  total: cart.reduce((s,i)=>s+(i.price*i.quantity),0),
+  items: cart.map(item => ({
+    name: item.name,
+    price: item.price,
+    quantity: item.quantity,
+    image: item.image
+  }))
+};
     orders.unshift(newOrder); // newest first
     localStorage.setItem('orders', JSON.stringify(orders));
 

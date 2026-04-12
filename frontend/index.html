@@ -904,10 +904,17 @@ function addToWishlist(productId){
 
   
   const newOrder = {
-    id: Date.now(),
-    items: cart,
-    total: cart.reduce((s,i)=>s+(i.price*i.quantity),0)
-  };
+  id: Date.now(),
+  date: new Date().toLocaleDateString(),
+  status: "Processing",
+  total: cart.reduce((s,i)=>s+(i.price*i.quantity),0),
+  items: cart.map(item => ({
+    name: item.name,
+    price: item.price,
+    quantity: item.quantity,
+    image: item.image
+  }))
+};
 
   orders.push(newOrder);
   localStorage.setItem("orders", JSON.stringify(orders));
